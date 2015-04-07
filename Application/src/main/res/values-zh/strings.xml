@@ -39,4 +39,5 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_websearch">Web search</string>
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
+    <string name="title_activity_to_gcm">顯示信息</string>
 </resources>

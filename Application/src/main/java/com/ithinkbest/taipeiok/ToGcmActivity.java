@@ -1,11 +1,10 @@
 package com.ithinkbest.taipeiok;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 
 public class ToGcmActivity extends Activity {
@@ -13,18 +12,28 @@ public class ToGcmActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-     //   setContentView(R.layout.activity_result);
-        String str="https://play.google.com/store/search?q=ithinkbest.com";
-        Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(str));
-        startActivity(myIntent);
-        finish();
+     //   savedInstanceState.get
+
+        setContentView(R.layout.activity_to_gcm);
+        TextView tv=(TextView)findViewById(R.id.showMsg);
+        String msg=getIntent().getStringExtra("message");
+
+      //  String msg=getIntent().getBundleExtra("message").toString();
+
+
+      //  savedInstanceState.g("message");
+        tv.setText(msg);
+//        String str="https://play.google.com/store/search?q=ithinkbest.com";
+//        Intent myIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(str));
+//        startActivity(myIntent);
+//        finish();
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_result, menu);
+//        getMenuInflater().inflate(R.menu.menu_result, menu);
         return true;
     }
 

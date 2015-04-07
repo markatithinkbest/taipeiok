@@ -1844,15 +1844,15 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f0a0034;
         public static final int action_bar_title=0x7f0a0033;
         public static final int action_context_bar=0x7f0a0047;
-        public static final int action_debug=0x7f0a005f;
-        public static final int action_del_all=0x7f0a005e;
+        public static final int action_debug=0x7f0a0060;
+        public static final int action_del_all=0x7f0a005f;
         public static final int action_menu_divider=0x7f0a0002;
         public static final int action_menu_presenter=0x7f0a0003;
         public static final int action_mode_bar=0x7f0a0043;
         public static final int action_mode_bar_stub=0x7f0a0042;
         public static final int action_mode_close_button=0x7f0a0035;
-        public static final int action_settings=0x7f0a005c;
-        public static final int action_update=0x7f0a005d;
+        public static final int action_settings=0x7f0a005d;
+        public static final int action_update=0x7f0a005e;
         public static final int activity_chooser_view_content=0x7f0a0036;
         public static final int adjust_height=0x7f0a0017;
         public static final int adjust_width=0x7f0a0018;
@@ -1890,8 +1890,8 @@ containing a value of this type.
         public static final int image=0x7f0a0038;
         public static final int left_drawer=0x7f0a0058;
         public static final int listMode=0x7f0a0009;
-        public static final int listView=0x7f0a0059;
-        public static final int listView2=0x7f0a005b;
+        public static final int listView=0x7f0a005a;
+        public static final int listView2=0x7f0a005c;
         public static final int list_item=0x7f0a003a;
         public static final int match_parent=0x7f0a002b;
         public static final int middle=0x7f0a0016;
@@ -1919,9 +1919,10 @@ containing a value of this type.
         public static final int shortcut=0x7f0a003f;
         public static final int showCustom=0x7f0a000f;
         public static final int showHome=0x7f0a0010;
+        public static final int showMsg=0x7f0a0059;
         public static final int showTitle=0x7f0a0011;
         public static final int slide=0x7f0a0013;
-        public static final int spinner=0x7f0a005a;
+        public static final int spinner=0x7f0a005b;
         public static final int split_action_bar=0x7f0a0007;
         public static final int strict_sandbox=0x7f0a0028;
         public static final int submit_area=0x7f0a0051;
@@ -1965,12 +1966,13 @@ containing a value of this type.
         public static final int activity_main=0x7f030018;
         public static final int activity_navigation_drawer=0x7f030019;
         public static final int activity_result=0x7f03001a;
-        public static final int drawer_list_item=0x7f03001b;
-        public static final int fragment_listview=0x7f03001c;
-        public static final int fragment_listview_v2=0x7f03001d;
-        public static final int fragment_planet=0x7f03001e;
-        public static final int sample_dashboard_item=0x7f03001f;
-        public static final int support_simple_spinner_dropdown_item=0x7f030020;
+        public static final int activity_to_gcm=0x7f03001b;
+        public static final int drawer_list_item=0x7f03001c;
+        public static final int fragment_listview=0x7f03001d;
+        public static final int fragment_listview_v2=0x7f03001e;
+        public static final int fragment_planet=0x7f03001f;
+        public static final int sample_dashboard_item=0x7f030020;
+        public static final int support_simple_spinner_dropdown_item=0x7f030021;
     }
     public static final class menu {
         public static final int menu_gcm_register=0x7f0e0000;
@@ -2048,10 +2050,11 @@ containing a value of this type.
         public static final int store_picture_title=0x7f0c0040;
         public static final int title_activity_gcm_register=0x7f0c0041;
         public static final int title_activity_result=0x7f0c0042;
-        public static final int to_app_webpage=0x7f0c0043;
-        public static final int to_google_play=0x7f0c0044;
-        public static final int update=0x7f0c0045;
-        public static final int wallet_buy_button_place_holder=0x7f0c0046;
+        public static final int title_activity_to_gcm=0x7f0c0043;
+        public static final int to_app_webpage=0x7f0c0044;
+        public static final int to_google_play=0x7f0c0045;
+        public static final int update=0x7f0c0046;
+        public static final int wallet_buy_button_place_holder=0x7f0c0047;
     }
     public static final class style {
         public static final int AppTheme=0x7f0d0000;

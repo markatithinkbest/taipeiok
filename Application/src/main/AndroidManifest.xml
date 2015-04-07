@@ -79,6 +79,10 @@
             android:label="@string/title_activity_result" >
         </activity>
         <activity
+            android:name=".ToGcmActivity"
+            android:label="@string/title_activity_to_gcm" >
+        </activity>
+        <activity
             android:name=".ToAppWebpageActivity"
             android:label="@string/title_activity_result" >
         </activity>
