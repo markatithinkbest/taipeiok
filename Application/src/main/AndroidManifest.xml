@@ -21,13 +21,25 @@
 
     <!-- Min/target SDK versions (<uses-sdk>) managed by build.gradle -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-<application
+    <permission android:name="com.ithinkbest.taipeiok.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.ithinkbest.taipeiok.permission.C2D_MESSAGE" />
+
+
+
+
+
+    <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-    <!--
+
+        <!--
                   <activity
                     android:name="com.ithinkbest.android.MainActivity"
                     android:label="@string/app_name" >
@@ -42,21 +54,21 @@
                     android:label="@string/app_name"
                     android:screenOrientation="portrait" >
                 </activity>
-         -->
-                <activity
-                    android:name=".NavigationDrawerActivity"
-                    android:screenOrientation="portrait"
-                    android:label="@string/app_name" >
-                    <intent-filter>
-                        <action android:name="android.intent.action.MAIN" />
+        -->
+        <activity
+            android:name=".NavigationDrawerActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" >
+         <!--   <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                        <category android:name="android.intent.category.LAUNCHER" />
-                    </intent-filter>
-                </activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
 
         <provider
-            android:name=".OkProvider"
-            android:authorities="com.ithinkbest.taipeiok.OkProvider"
+            android:name=".TaipeiOkProvider"
+            android:authorities="com.ithinkbest.taipeiok.TaipeiOkProvider"
             android:exported="false"
             android:syncable="true" />
 
@@ -66,10 +78,34 @@
             android:name=".ToGooglePlayActivity"
             android:label="@string/title_activity_result" >
         </activity>
-    <activity
-        android:name=".ToAppWebpageActivity"
-        android:label="@string/title_activity_result" >
-    </activity>
+        <activity
+            android:name=".ToAppWebpageActivity"
+            android:label="@string/title_activity_result" >
+        </activity>
+        <activity
+            android:name=".GcmRegister"
+            android:label="@string/title_activity_gcm_register" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+
+        <receiver
+            android:name=".GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="com.ithinkbest.taipeiok" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".GcmMessageHandler" />
+
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>

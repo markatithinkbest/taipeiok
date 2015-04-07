@@ -103,40 +103,40 @@ public class UpdateService extends Service {
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String name = jsonObject.getString(OkProvider.COLUMN_NAME).trim();
-                String certification_category = jsonObject.getString(OkProvider.COLUMN_CERTIFICATION_CATEGORY).trim();
-                String tel = jsonObject.getString(OkProvider.COLUMN_TEL).trim();
+                String name = jsonObject.getString(TaipeiOkProvider.COLUMN_NAME).trim();
+                String certification_category = jsonObject.getString(TaipeiOkProvider.COLUMN_CERTIFICATION_CATEGORY).trim();
+                String tel = jsonObject.getString(TaipeiOkProvider.COLUMN_TEL).trim();
                 // not to show null
                 if (tel==null || tel.equals("null")){
                     tel="";
                 }
-                String display_addr = jsonObject.getString(OkProvider.COLUMN_DISPLAY_ADDR).trim();
+                String display_addr = jsonObject.getString(TaipeiOkProvider.COLUMN_DISPLAY_ADDR).trim();
 
 
-                String poi_addr = jsonObject.getString(OkProvider.COLUMN_POI_ADDR).trim();
+                String poi_addr = jsonObject.getString(TaipeiOkProvider.COLUMN_POI_ADDR).trim();
 
                 //
                 String addr_dist = display_addr.substring(0,6);
 
                 ContentValues weatherValues = new ContentValues();
-                weatherValues.put(OkProvider.COLUMN_NAME, name);
-                weatherValues.put(OkProvider.COLUMN_CERTIFICATION_CATEGORY, certification_category);
-                weatherValues.put(OkProvider.COLUMN_TEL, tel);
+                weatherValues.put(TaipeiOkProvider.COLUMN_NAME, name);
+                weatherValues.put(TaipeiOkProvider.COLUMN_CERTIFICATION_CATEGORY, certification_category);
+                weatherValues.put(TaipeiOkProvider.COLUMN_TEL, tel);
 
                 if (tel.equals("")){
-                    weatherValues.put(OkProvider.COLUMN_DISPLAY_ADDR, display_addr);
+                    weatherValues.put(TaipeiOkProvider.COLUMN_DISPLAY_ADDR, display_addr);
 
                 }else{
-                    weatherValues.put(OkProvider.COLUMN_DISPLAY_ADDR, display_addr+"  tel: "+tel);
+                    weatherValues.put(TaipeiOkProvider.COLUMN_DISPLAY_ADDR, display_addr+"  tel: "+tel);
 
                 }
 
 
-                weatherValues.put(OkProvider.COLUMN_POI_ADDR, poi_addr);
+                weatherValues.put(TaipeiOkProvider.COLUMN_POI_ADDR, poi_addr);
 
                 //
                 String strDist=getDistrict(display_addr);
-                weatherValues.put(OkProvider.COLUMN_DISTRICT, strDist);
+                weatherValues.put(TaipeiOkProvider.COLUMN_DISTRICT, strDist);
          //       Log.d(LOG_TAG, "strDist=" + strDist + " COLUMN_DISPLAY_ADDR=" + display_addr);
                 cVVector.add(weatherValues);
 
@@ -153,9 +153,9 @@ public class UpdateService extends Service {
         if ( cVVector.size() > 0 ) {
             String str=null;
 
-            String selection =OkProvider.COLUMN_CERTIFICATION_CATEGORY+"=\""+OkProvider.CATXX[cat]+"\"" ;
+            String selection = TaipeiOkProvider.COLUMN_CERTIFICATION_CATEGORY+"=\""+ TaipeiOkProvider.CATXX[cat]+"\"" ;
 
-            int delCnt=getContentResolver().delete(OkProvider.CONTENT_URI,
+            int delCnt=getContentResolver().delete(TaipeiOkProvider.CONTENT_URI,
                     selection,
                     null);
             Log.d(LOG_TAG, "del cnt= "+ delCnt);
@@ -165,7 +165,7 @@ public class UpdateService extends Service {
 
             ContentValues[] cvArray = new ContentValues[cVVector.size()];
             cVVector.toArray(cvArray);
-            int bulkCnt=getContentResolver().bulkInsert(OkProvider.CONTENT_URI, cvArray);
+            int bulkCnt=getContentResolver().bulkInsert(TaipeiOkProvider.CONTENT_URI, cvArray);
             Log.d(LOG_TAG, "bulk cnt= "+ bulkCnt);
 
 
@@ -197,7 +197,7 @@ public class UpdateService extends Service {
         HttpClient client = new DefaultHttpClient();
 //        HttpGet httpGet = new HttpGet("https://bugzilla.mozilla.org/rest/bug?assigned_to=lhenry@mozilla.com");
         //  String str = "http://data.taipei.gov.tw/opendata/apply/json/QTdBNEQ5NkQtQkM3MS00QUI2LUJENTctODI0QTM5MkIwMUZE";
-        String str=OkProvider.JSNXX[cat];
+        String str= TaipeiOkProvider.JSNXX[cat];
 
 
 

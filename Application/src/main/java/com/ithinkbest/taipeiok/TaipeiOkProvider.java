@@ -15,12 +15,10 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 
-public class OkProvider extends ContentProvider {
+public class TaipeiOkProvider extends ContentProvider {
     static String LOG_TAG = "MARK987";
-    // ### NEED TO CHANGE TO YOUR DOMAIN
-    // static final String PROVIDER_NAME =
-    // "com.ithinkbest.tcnr18.finaltwo.MembersProvider";
-    static final String PROVIDER_NAME = "com.ithinkbest.taipeiok.OkProvider";
+
+    static final String PROVIDER_NAME = "com.ithinkbest.taipeiok.TaipeiOkProvider";
 
     private static final String SUB1 = "sub1";
     private static final String SUB2 = "sub2"; // for rawQuery
@@ -30,16 +28,6 @@ public class OkProvider extends ContentProvider {
 
     static final Uri CONTENT_URI = Uri.parse(URL);
     static final Uri CONTENT_URI_RAW_QUERY = Uri.parse(URL_RAW_QUERY);
-
-    // `id` int(11) NOT NULL auto_increment,
-    // `username` varchar(20) NOT NULL,
-    // `password` varchar(32) NOT NULL,
-    // `email` varchar(30) NOT NULL,
-    // `authcode` varchar(8) default NULL,
-    // `state` char(1) NOT NULL default '0',
-    // `gup` varchar(10) NOT NULL,
-    // `address1` double default NULL,
-    // `address2` double default NULL,
 
     static final int uriCode = 1;
     static final int uriCodeRawQuery = 2;
@@ -56,19 +44,7 @@ public class OkProvider extends ContentProvider {
         uriMatcher.addURI(PROVIDER_NAME, SUB2, uriCodeRawQuery);
 
     }
-//    <item>旅館業</item>
-//    <item>美容美髮業</item>
-//    <item>電影片映演業</item>
-//    <item>游泳業</item>
-//    <item>浴室業</item>
-//    <item>娛樂業</item>
-//    <item>製麵業及包子饅頭製作業</item>
-//    <item>食品販售業</item>
-//    <item>一般餐飲業</item>
-//    <item>飲冰品業</item>
-//    <item>烘焙業</item>
-//    <item>中央廚房</item>
-//    <item>休憩餐飲業</item>
+
     private SQLiteDatabase sqlDB;
     static final String CAT00 = "旅館業";
     static final String CAT01 = "美容美髮業";
@@ -84,47 +60,24 @@ public class OkProvider extends ContentProvider {
     static final String CAT11 = "中央廚房";
     static final String CAT12 = "休憩餐飲業";
 
-    static final String JSN00="http://data.taipei.gov.tw/opendata/apply/json/QTdBNEQ5NkQtQkM3MS00QUI2LUJENTctODI0QTM5MkIwMUZE";
-    static final String JSN01="http://data.taipei.gov.tw/opendata/apply/json/NzQzQjFGQjUtNzUxMi00RkUxLUIwQ0UtOUQxNjQ4MkExMDBD";
-    static final String JSN02="http://data.taipei.gov.tw/opendata/apply/json/NEMwNDE1OTEtRTJDOC00NTM2LUI1QkItMjc3NDJBMDU3MjNE";
-    static final String JSN03="http://data.taipei.gov.tw/opendata/apply/json/N0JCNzMwNEYtMkRDQi00ODNFLUIzQjMtN0E0ODM4RTU4NUUz";
-    static final String JSN04="http://data.taipei.gov.tw/opendata/apply/json/NEFERTQ0NDUtQjFFMy00NzJGLTlDRUQtQURGMEExQzI2NjNF";
-    static final String JSN05="http://data.taipei.gov.tw/opendata/apply/json/MDE1QzBFRUQtQkE2RC00MjNGLTkwMUEtOUMzMTU3MDYwNkE2";
-    static final String JSN06="http://data.taipei.gov.tw/opendata/apply/json/N0JFMjA1NEUtNjJCQi00NkIzLThDNTEtMEVDMDBERDE0QkUx";
-    static final String JSN07="http://data.taipei.gov.tw/opendata/apply/json/RUMzQTdDQUYtRDQ5NC00QTVBLUJFRkMtMzlEQUMwNTVBN0Yx";
-    static final String JSN08="http://data.taipei.gov.tw/opendata/apply/json/MDY2RERBMTctQTE4Mi00OEU5LUI2M0YtRTg0NTQ1NUEzM0Mw";
-    static final String JSN09="http://data.taipei.gov.tw/opendata/apply/json/ODg0QTEyNUEtRDMwQi00RTJCLTgyODAtQzNBMzlFOTk1NUJF";
-    static final String JSN10="http://data.taipei.gov.tw/opendata/apply/json/QzgwMEFBMjUtMjlCNS00OUZDLUE2MzgtQUIyRDJBRDM5NjJB";
-    static final String JSN11="http://data.taipei.gov.tw/opendata/apply/json/NEI5ODUxQzMtRTc5MS00MjJCLTk1QTMtMTkxRUFCQTBBMzY5";
-    static final String JSN12="http://data.taipei.gov.tw/opendata/apply/json/QTBEMTY0RUEtMjgyNi00Q0I1LTkwNzMtMjlDQUM0MkNBOTdD";
-    public final static String[] CATXX= {CAT00,CAT01,CAT02,CAT03,CAT04,CAT05,CAT06,CAT07,CAT08,CAT09,CAT10,CAT11,CAT12};
-    public final static String[] JSNXX = {JSN00,JSN01,JSN02,JSN03,JSN04,JSN05,JSN06,JSN07,JSN08,JSN09,JSN10,JSN11,JSN12};
+    static final String JSN00 = "http://data.taipei.gov.tw/opendata/apply/json/QTdBNEQ5NkQtQkM3MS00QUI2LUJENTctODI0QTM5MkIwMUZE";
+    static final String JSN01 = "http://data.taipei.gov.tw/opendata/apply/json/NzQzQjFGQjUtNzUxMi00RkUxLUIwQ0UtOUQxNjQ4MkExMDBD";
+    static final String JSN02 = "http://data.taipei.gov.tw/opendata/apply/json/NEMwNDE1OTEtRTJDOC00NTM2LUI1QkItMjc3NDJBMDU3MjNE";
+    static final String JSN03 = "http://data.taipei.gov.tw/opendata/apply/json/N0JCNzMwNEYtMkRDQi00ODNFLUIzQjMtN0E0ODM4RTU4NUUz";
+    static final String JSN04 = "http://data.taipei.gov.tw/opendata/apply/json/NEFERTQ0NDUtQjFFMy00NzJGLTlDRUQtQURGMEExQzI2NjNF";
+    static final String JSN05 = "http://data.taipei.gov.tw/opendata/apply/json/MDE1QzBFRUQtQkE2RC00MjNGLTkwMUEtOUMzMTU3MDYwNkE2";
+    static final String JSN06 = "http://data.taipei.gov.tw/opendata/apply/json/N0JFMjA1NEUtNjJCQi00NkIzLThDNTEtMEVDMDBERDE0QkUx";
+    static final String JSN07 = "http://data.taipei.gov.tw/opendata/apply/json/RUMzQTdDQUYtRDQ5NC00QTVBLUJFRkMtMzlEQUMwNTVBN0Yx";
+    static final String JSN08 = "http://data.taipei.gov.tw/opendata/apply/json/MDY2RERBMTctQTE4Mi00OEU5LUI2M0YtRTg0NTQ1NUEzM0Mw";
+    static final String JSN09 = "http://data.taipei.gov.tw/opendata/apply/json/ODg0QTEyNUEtRDMwQi00RTJCLTgyODAtQzNBMzlFOTk1NUJF";
+    static final String JSN10 = "http://data.taipei.gov.tw/opendata/apply/json/QzgwMEFBMjUtMjlCNS00OUZDLUE2MzgtQUIyRDJBRDM5NjJB";
+    static final String JSN11 = "http://data.taipei.gov.tw/opendata/apply/json/NEI5ODUxQzMtRTc5MS00MjJCLTk1QTMtMTkxRUFCQTBBMzY5";
+    static final String JSN12 = "http://data.taipei.gov.tw/opendata/apply/json/QTBEMTY0RUEtMjgyNi00Q0I1LTkwNzMtMjlDQUM0MkNBOTdD";
+    public final static String[] CATXX = {CAT00, CAT01, CAT02, CAT03, CAT04, CAT05, CAT06, CAT07, CAT08, CAT09, CAT10, CAT11, CAT12};
+    public final static String[] JSNXX = {JSN00, JSN01, JSN02, JSN03, JSN04, JSN05, JSN06, JSN07, JSN08, JSN09, JSN10, JSN11, JSN12};
 
+    DatabaseHelper dbHelper = null;
 
-//    <item>旅館業</item>
-//    <item>美容美髮業</item>
-//    <item>電影片映演業</item>
-//    <item>游泳業</item>
-//    <item>浴室業</item>
-//    <item>娛樂業</item>
-//    <item>製麵業</item>
-//    <item>食品販售業</item>
-//    <item>旅館業</item>
-//    <item>一般餐飲業</item>
-//    <item>飲冰品業</item>
-//    <item>烘焙業</item>
-//    <item>中央廚房</item>
-//    <item>休憩餐飲業</item>
-
-    DatabaseHelper dbHelper=null;
-
-
-
-//    * 標題 name
-//    * Ok認證類別 certification_category
-//    * 連絡電話 tel
-//    * 顯示用地址 display_addr
-//    * 系統辨識用地址 poi_addrc
 
     static final String COLUMN_ID = "_id"; // local ID
     static final String COLUMN_NAME = "name";
@@ -164,7 +117,7 @@ public class OkProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-         dbHelper = new DatabaseHelper(getContext());
+        dbHelper = new DatabaseHelper(getContext());
         sqlDB = dbHelper.getWritableDatabase();
         if (sqlDB != null) {
             return true;
@@ -173,19 +126,13 @@ public class OkProvider extends ContentProvider {
     }
 
 
-//    @Override
-    public Cursor rawQuery(String sql){
+    //    @Override
+    public Cursor rawQuery(String sql) {
         return dbHelper.getReadableDatabase().rawQuery(sql, null);
 
     }
 
-    // Returns a cursor that provides read and write access to the results of
-    // the query
-    // Uri : Links to the table in the provider (The From part of a query)
-    // projection : an array of columns to retrieve with each row
-    // selection : The where part of the query selection
-    // selectionArgs : The argument part of the where (where id = 1)
-    // sortOrder : The order by part of the query
+
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
@@ -199,20 +146,17 @@ public class OkProvider extends ContentProvider {
         // Used to match uris with Content Providers
         switch (uriMatcher.match(uri)) {
             case uriCode:
-
-                // A projection map maps from passed column names to database column
-                // names
                 queryBuilder.setProjectionMap(values);
                 break;
             case uriCodeRawQuery:
-            String sql="SELECT "+COLUMN_ID+","+
-                    COLUMN_DISTRICT+", COUNT("+COLUMN_DISTRICT+") AS CNT"+
-                    " FROM "+TABLE_NAME+
-                    " WHERE  "+selection+
-                    " GROUP BY "+COLUMN_DISTRICT;
-                Log.d(LOG_TAG, "############## raw query ############"+sql);
+                String sql = "SELECT " + COLUMN_ID + "," +
+                        COLUMN_DISTRICT + ", COUNT(" + COLUMN_DISTRICT + ") AS CNT" +
+                        " FROM " + TABLE_NAME +
+                        " WHERE  " + selection +
+                        " GROUP BY " + COLUMN_DISTRICT;
+                Log.d(LOG_TAG, "############## raw query ############" + sql);
                 return dbHelper.getReadableDatabase().rawQuery(sql, null);
-          //  break;
+            //  break;
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);
         }

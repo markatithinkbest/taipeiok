@@ -221,7 +221,7 @@ public class NavigationDrawerActivity extends Activity implements PlanetAdapter.
                 StrictMode.ThreadPolicy policy = new StrictMode.
                         ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
-                getContentResolver().delete(OkProvider.CONTENT_URI, null, null);
+                getContentResolver().delete(TaipeiOkProvider.CONTENT_URI, null, null);
                 return true;
             case R.id.action_debug:
                 doingDebug();
@@ -373,11 +373,11 @@ public class NavigationDrawerActivity extends Activity implements PlanetAdapter.
 
 
         private Cursor getSummary(int cat) {
-            Uri uri = OkProvider.CONTENT_URI_RAW_QUERY;
-            String[] projection = new String[]{OkProvider.COLUMN_ID,
-                    OkProvider.COLUMN_NAME, OkProvider.COLUMN_DISPLAY_ADDR};
+            Uri uri = TaipeiOkProvider.CONTENT_URI_RAW_QUERY;
+            String[] projection = new String[]{TaipeiOkProvider.COLUMN_ID,
+                    TaipeiOkProvider.COLUMN_NAME, TaipeiOkProvider.COLUMN_DISPLAY_ADDR};
             //
-            String selection = OkProvider.COLUMN_CERTIFICATION_CATEGORY + "=\"" + Certification_Category[cat] + "\"";
+            String selection = TaipeiOkProvider.COLUMN_CERTIFICATION_CATEGORY + "=\"" + Certification_Category[cat] + "\"";
 
             String[] selectionArgs = null;
             String sortOrder = null;
@@ -394,7 +394,7 @@ public class NavigationDrawerActivity extends Activity implements PlanetAdapter.
 
 
             spinnerAdapter = new SimpleCursorAdapter(getActivity(),
-                    android.R.layout.simple_list_item_2, getSummary(cat), new String[]{OkProvider.COLUMN_DISTRICT, "CNT"}, new int[]{
+                    android.R.layout.simple_list_item_2, getSummary(cat), new String[]{TaipeiOkProvider.COLUMN_DISTRICT, "CNT"}, new int[]{
                     android.R.id.text1, android.R.id.text2});
             spinnerAdapter.notifyDataSetChanged();
             spinner.setAdapter(spinnerAdapter);
@@ -402,14 +402,14 @@ public class NavigationDrawerActivity extends Activity implements PlanetAdapter.
         }
 
         private Cursor getList(int cat) {
-            Uri uri = OkProvider.CONTENT_URI;
-            String[] projection = new String[]{OkProvider.COLUMN_ID,
-                    OkProvider.COLUMN_NAME, OkProvider.COLUMN_DISPLAY_ADDR};
+            Uri uri = TaipeiOkProvider.CONTENT_URI;
+            String[] projection = new String[]{TaipeiOkProvider.COLUMN_ID,
+                    TaipeiOkProvider.COLUMN_NAME, TaipeiOkProvider.COLUMN_DISPLAY_ADDR};
             //
-            String selection = OkProvider.COLUMN_CERTIFICATION_CATEGORY + "=\"" + OkProvider.CATXX[cat] + "\"";
+            String selection = TaipeiOkProvider.COLUMN_CERTIFICATION_CATEGORY + "=\"" + TaipeiOkProvider.CATXX[cat] + "\"";
 
             String[] selectionArgs = null;
-            String sortOrder = OkProvider.COLUMN_DISPLAY_ADDR;
+            String sortOrder = TaipeiOkProvider.COLUMN_DISPLAY_ADDR;
 
             return getActivity().managedQuery(uri, projection, selection, selectionArgs,
                     sortOrder);
@@ -436,16 +436,16 @@ public class NavigationDrawerActivity extends Activity implements PlanetAdapter.
 
 
         private Cursor getList(int cat, String district) {
-            Uri uri = OkProvider.CONTENT_URI;
-            String[] projection = new String[]{OkProvider.COLUMN_ID,
-                    OkProvider.COLUMN_NAME, OkProvider.COLUMN_DISPLAY_ADDR};
+            Uri uri = TaipeiOkProvider.CONTENT_URI;
+            String[] projection = new String[]{TaipeiOkProvider.COLUMN_ID,
+                    TaipeiOkProvider.COLUMN_NAME, TaipeiOkProvider.COLUMN_DISPLAY_ADDR};
             //
-            String selection = OkProvider.COLUMN_CERTIFICATION_CATEGORY + "=\"" + OkProvider.CATXX[cat] + "\""
-                    + " AND " + OkProvider.COLUMN_DISTRICT + " LIKE '%" + district + "%'";
+            String selection = TaipeiOkProvider.COLUMN_CERTIFICATION_CATEGORY + "=\"" + TaipeiOkProvider.CATXX[cat] + "\""
+                    + " AND " + TaipeiOkProvider.COLUMN_DISTRICT + " LIKE '%" + district + "%'";
             //name like '% LIM %'
 
             String[] selectionArgs = null;
-            String sortOrder = OkProvider.COLUMN_DISPLAY_ADDR;
+            String sortOrder = TaipeiOkProvider.COLUMN_DISPLAY_ADDR;
 
             return getActivity().managedQuery(uri, projection, selection, selectionArgs,
                     sortOrder);
@@ -473,7 +473,7 @@ public class NavigationDrawerActivity extends Activity implements PlanetAdapter.
            // new UpdateService().processJson(selectedCategory);
             processJson(selectedCategory);
             spinnerAdapter = new SimpleCursorAdapter(getActivity(),
-                    android.R.layout.simple_list_item_2, getSummary(selectedCategory), new String[]{OkProvider.COLUMN_DISTRICT, "CNT"}, new int[]{
+                    android.R.layout.simple_list_item_2, getSummary(selectedCategory), new String[]{TaipeiOkProvider.COLUMN_DISTRICT, "CNT"}, new int[]{
                     android.R.id.text1, android.R.id.text2});
 
             spinner.setAdapter(spinnerAdapter);
@@ -493,7 +493,7 @@ public class NavigationDrawerActivity extends Activity implements PlanetAdapter.
             Cursor mGrpMemberCursor = getList(selectedCategory);
             getActivity().startManagingCursor(mGrpMemberCursor);
             SimpleCursorAdapter adapter = new SimpleCursorAdapter(getActivity(),
-                    android.R.layout.simple_list_item_2, mGrpMemberCursor, new String[]{OkProvider.COLUMN_NAME, OkProvider.COLUMN_DISPLAY_ADDR}, new int[]{
+                    android.R.layout.simple_list_item_2, mGrpMemberCursor, new String[]{TaipeiOkProvider.COLUMN_NAME, TaipeiOkProvider.COLUMN_DISPLAY_ADDR}, new int[]{
                     android.R.id.text1, android.R.id.text2});
 
             listView.setAdapter(adapter);
@@ -584,40 +584,40 @@ public class NavigationDrawerActivity extends Activity implements PlanetAdapter.
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    String name = jsonObject.getString(OkProvider.COLUMN_NAME).trim();
-                    String certification_category = jsonObject.getString(OkProvider.COLUMN_CERTIFICATION_CATEGORY).trim();
-                    String tel = jsonObject.getString(OkProvider.COLUMN_TEL).trim();
+                    String name = jsonObject.getString(TaipeiOkProvider.COLUMN_NAME).trim();
+                    String certification_category = jsonObject.getString(TaipeiOkProvider.COLUMN_CERTIFICATION_CATEGORY).trim();
+                    String tel = jsonObject.getString(TaipeiOkProvider.COLUMN_TEL).trim();
                     // not to show null
                     if (tel==null || tel.equals("null")){
                         tel="";
                     }
-                    String display_addr = jsonObject.getString(OkProvider.COLUMN_DISPLAY_ADDR).trim();
+                    String display_addr = jsonObject.getString(TaipeiOkProvider.COLUMN_DISPLAY_ADDR).trim();
 
 
-                    String poi_addr = jsonObject.getString(OkProvider.COLUMN_POI_ADDR).trim();
+                    String poi_addr = jsonObject.getString(TaipeiOkProvider.COLUMN_POI_ADDR).trim();
 
                     //
 
 
                     ContentValues weatherValues = new ContentValues();
-                    weatherValues.put(OkProvider.COLUMN_NAME, name);
-                    weatherValues.put(OkProvider.COLUMN_CERTIFICATION_CATEGORY, certification_category);
-                    weatherValues.put(OkProvider.COLUMN_TEL, tel);
+                    weatherValues.put(TaipeiOkProvider.COLUMN_NAME, name);
+                    weatherValues.put(TaipeiOkProvider.COLUMN_CERTIFICATION_CATEGORY, certification_category);
+                    weatherValues.put(TaipeiOkProvider.COLUMN_TEL, tel);
 
                     if (tel.equals("")){
-                        weatherValues.put(OkProvider.COLUMN_DISPLAY_ADDR, display_addr);
+                        weatherValues.put(TaipeiOkProvider.COLUMN_DISPLAY_ADDR, display_addr);
 
                     }else{
-                        weatherValues.put(OkProvider.COLUMN_DISPLAY_ADDR, display_addr+"  tel: "+tel);
+                        weatherValues.put(TaipeiOkProvider.COLUMN_DISPLAY_ADDR, display_addr+"  tel: "+tel);
 
                     }
 
 
-                    weatherValues.put(OkProvider.COLUMN_POI_ADDR, poi_addr);
+                    weatherValues.put(TaipeiOkProvider.COLUMN_POI_ADDR, poi_addr);
 
                     //
                     String strDist=getDistrict(display_addr);
-                    weatherValues.put(OkProvider.COLUMN_DISTRICT, strDist);
+                    weatherValues.put(TaipeiOkProvider.COLUMN_DISTRICT, strDist);
                     //       Log.d(LOG_TAG, "strDist=" + strDist + " COLUMN_DISPLAY_ADDR=" + display_addr);
                     cVVector.add(weatherValues);
 
@@ -634,9 +634,9 @@ public class NavigationDrawerActivity extends Activity implements PlanetAdapter.
             if ( cVVector.size() > 0 ) {
                 String str=null;
 
-                String selection =OkProvider.COLUMN_CERTIFICATION_CATEGORY+"=\""+OkProvider.CATXX[cat]+"\"" ;
+                String selection = TaipeiOkProvider.COLUMN_CERTIFICATION_CATEGORY+"=\""+ TaipeiOkProvider.CATXX[cat]+"\"" ;
 
-                int delCnt=getActivity().getContentResolver().delete(OkProvider.CONTENT_URI,
+                int delCnt=getActivity().getContentResolver().delete(TaipeiOkProvider.CONTENT_URI,
                         selection,
                         null);
                 Log.d(LOG_TAG, "del cnt= "+ delCnt);
@@ -646,7 +646,7 @@ public class NavigationDrawerActivity extends Activity implements PlanetAdapter.
 
                 ContentValues[] cvArray = new ContentValues[cVVector.size()];
                 cVVector.toArray(cvArray);
-                int bulkCnt=getActivity().getContentResolver().bulkInsert(OkProvider.CONTENT_URI, cvArray);
+                int bulkCnt=getActivity().getContentResolver().bulkInsert(TaipeiOkProvider.CONTENT_URI, cvArray);
                 Log.d(LOG_TAG, "bulk cnt= "+ bulkCnt);
 
 
@@ -678,7 +678,7 @@ public class NavigationDrawerActivity extends Activity implements PlanetAdapter.
             HttpClient client = new DefaultHttpClient();
 //        HttpGet httpGet = new HttpGet("https://bugzilla.mozilla.org/rest/bug?assigned_to=lhenry@mozilla.com");
             //  String str = "http://data.taipei.gov.tw/opendata/apply/json/QTdBNEQ5NkQtQkM3MS00QUI2LUJENTctODI0QTM5MkIwMUZE";
-            String str=OkProvider.JSNXX[cat];
+            String str= TaipeiOkProvider.JSNXX[cat];
 
 
 
@@ -728,7 +728,7 @@ public class NavigationDrawerActivity extends Activity implements PlanetAdapter.
                 Cursor mGrpMemberCursor = getList(selectedCategory, strDist);
                 getActivity().startManagingCursor(mGrpMemberCursor);
                 SimpleCursorAdapter adapter = new SimpleCursorAdapter(getActivity(),
-                        android.R.layout.simple_list_item_2, mGrpMemberCursor, new String[]{OkProvider.COLUMN_NAME, OkProvider.COLUMN_DISPLAY_ADDR}, new int[]{
+                        android.R.layout.simple_list_item_2, mGrpMemberCursor, new String[]{TaipeiOkProvider.COLUMN_NAME, TaipeiOkProvider.COLUMN_DISPLAY_ADDR}, new int[]{
                         android.R.id.text1, android.R.id.text2});
 
                 listView.setAdapter(adapter);
