@@ -51,11 +51,16 @@ public class GcmMessageHandler extends IntentService {
 
     private void notifyGcm() {
         int idGooglePlay = 12347;
+        String shortMsg=mes;
+        if (shortMsg.length()>24){
+            shortMsg=shortMsg.substring(0,24)+" ...";
+        }
+
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.drawable.ic_launcher)
                         .setContentTitle(getString(R.string.app_name))
-                        .setContentText("Received: "+mes.substring(0,24)+" ...");
+                        .setContentText("Received: "+mes);
 // Creates an explicit intent for an Activity in your app
         Intent resultIntent = new Intent(this, ToGcmActivity.class)
                 .putExtra("message", mes);
