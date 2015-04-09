@@ -23,10 +23,10 @@
         <![CDATA[
         
             
-            結訓專題，要支援多國語系，
+            結訓專題，支援多國語系，
             側邊欄，具備四大元件
             （Activities, Services, Content providers 和 Broadcast receivers)
-            
+            實施包括了GCM， SQLite 和 MySQL
         
         ]]>
     </string>

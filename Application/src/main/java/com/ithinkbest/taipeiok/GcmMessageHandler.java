@@ -91,7 +91,7 @@ public class GcmMessageHandler extends IntentService {
     public void showToast(){
         handler.post(new Runnable() {
             public void run() {
-                Toast.makeText(getApplicationContext(), mes, Toast.LENGTH_LONG).show();
+            //    Toast.makeText(getApplicationContext(), mes, Toast.LENGTH_LONG).show();
 
                 notifyGcm();
 

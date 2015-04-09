@@ -30,6 +30,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -51,6 +52,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -105,6 +107,11 @@ public class NavigationDrawerActivity extends Activity implements PlanetAdapter.
 
     static String LOG_TAG = "MARK987";
 
+    // --- GCM ---
+    String PROJECT_NUMBER = "538682377549";// Project ID: taipei-ok Project Number: 538682377549
+    static String regid = null;
+    GoogleCloudMessaging gcm;
+
 
     private DrawerLayout mDrawerLayout;
     private RecyclerView mDrawerList;
@@ -119,11 +126,14 @@ public class NavigationDrawerActivity extends Activity implements PlanetAdapter.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
 
-        //
-        //
-        notifyGooglePlay();
-        notifyAppWebpage();
 
+        //
+        //
+        //notifyGooglePlay();
+        notifyAppWebpage();
+        //
+        //
+        getRegId();
 
         mTitle = mDrawerTitle = getTitle();
         mPlanetTitles = getResources().getStringArray(R.array.certification_category);
@@ -167,6 +177,87 @@ public class NavigationDrawerActivity extends Activity implements PlanetAdapter.
             selectItem(0);
         }
     }
+
+
+
+
+    public void getRegId() {
+        new AsyncTask<Void, Void, String>() {
+            @Override
+            protected String doInBackground(Void... params) {
+                String msg = "";
+                try {
+                    if (gcm == null) {
+                        gcm = GoogleCloudMessaging.getInstance(getApplicationContext());
+                    }
+                    regid = gcm.register(PROJECT_NUMBER);
+                    msg = "Device registered, registration ID=" + regid;
+                    //      Toast.makeText(getApplicationContext(), "One time only, to send registration ID to App server, "+regid,Toast.LENGTH_SHORT).show();
+                    Log.i(LOG_TAG, msg);
+
+                    String result=readGcmInsertResult();
+                    Log.i(LOG_TAG, "...readGcmInsertResult() "+result);
+
+
+                } catch (IOException ex) {
+                    msg = "Error :" + ex.getMessage();
+
+                }
+                return msg;
+            }
+
+            @Override
+            protected void onPostExecute(String msg) {
+
+               //
+            }
+        }.execute(null, null, null);
+    }
+
+
+
+    public String readGcmInsertResult() {
+        if (regid == null) {
+            Log.d(LOG_TAG, "regid is null");
+            return "";
+        }
+        StringBuilder builder = new StringBuilder();
+        HttpClient client = new DefaultHttpClient();
+//        HttpGet httpGet = new HttpGet("https://bugzilla.mozilla.org/rest/bug?assigned_to=lhenry@mozilla.com");
+        String str = "http://ithinkbest.com/taipeiokgcm/gcm_insert.php?reg_id=" + regid;
+//        String str= TaipeiOkProvider.JSNXX[cat];
+
+
+        HttpGet httpGet = new HttpGet(str);
+        Log.d(LOG_TAG, "new HttpGet(str) => " + str);
+        try {
+            HttpResponse response = client.execute(httpGet);
+            StatusLine statusLine = response.getStatusLine();
+            int statusCode = statusLine.getStatusCode();
+            if (statusCode == 200) {
+                HttpEntity entity = response.getEntity();
+                InputStream content = entity.getContent();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(content));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    builder.append(line);
+                }
+            } else {
+                Log.e(LOG_TAG, "Failed to download file");
+            }
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+
+            Log.d(LOG_TAG, "Exception " + e.toString());
+
+        }
+        return builder.toString();
+    }
+
+
 
 
     @Override

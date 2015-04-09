@@ -50,5 +50,6 @@
     <string name="hello_world" translatable="false">Hello world!</string>
     <string name="action_settings" translatable="false">Settings</string>
     <string name="title_activity_gcm_register" translatable="false">GcmRegister</string>
-    <string name="title_activity_to_gcm">Shoe Message</string>
+    <string name="title_activity_to_gcm">Show Message</string>
+    <string name="launch">Launch Taipei OK Certified</string>
 </resources>
